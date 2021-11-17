@@ -9,9 +9,18 @@ export default {
   component: InputValidateEmail,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    numberOfWidth: { control: { min: 50, max: 1000, type: 'range' } },
+    // onClick: { action: 'asdasd' },
+    // clickHandler: { action: 'asdasdasd' },
+    numberOfWidth: {
+      control: { min: 50, max: 1000, type: 'number', value: 70 },
+    },
     backgroundColor: { control: 'color' },
   },
+  // parameters: {
+  //   actions: {
+  //     handles: ['mouseover', 'click .btn'],
+  //   },
+  // },
 } as ComponentMeta<typeof InputValidateEmail>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
