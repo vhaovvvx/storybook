@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import React from 'react';
 import Chart from 'react-chartjs-2';
+import './TestChartjs2.scss';
+import { CFormSelect } from '@coreui/react';
+import RadioCheck from '../Button/Radio/RadioCheck';
+import ButtonDropdown from '../Button/ButtonGroup/ButtonDropdown/ButtonDropDown';
+import ButtonGroup from '../Button/ButtonGroup/ButtonGroup';
+import ButtonGroup2 from '../Button/ButtonGroup/ButtonGroup2';
 
 type P = {};
 
@@ -26,6 +32,7 @@ export const getRandomNum = () => {
 const TestChartJs2: React.FC<P> = ({ ...props }) => {
   let dataObjects = [
     {
+      title: '2021',
       label: 'Datasets 1',
       data: [
         getRandomNum(),
@@ -43,6 +50,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
       ],
     },
     {
+      title: '2020',
       label: 'Datasets 2',
       data: [
         getRandomNum(),
@@ -60,6 +68,8 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
       ],
     },
     {
+      title: '2019',
+
       label: 'Datasets 3',
       data: [
         getRandomNum(),
@@ -77,6 +87,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
       ],
     },
     {
+      title: '2018',
       label: 'Datasets 4',
       data: [
         getRandomNum(),
@@ -94,6 +105,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
       ],
     },
     {
+      title: '2017',
       label: 'Datasets 5',
       data: [
         getRandomNum(),
@@ -115,36 +127,51 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
   const [dataDefault, setDataDefault] = useState({
     label: dataObjects[0].label,
     data: dataObjects[0].data,
+    title: dataObjects[0].title,
   });
 
-  const onChangeFunc = (e: any) => {
-    let dataNumber = parseInt(e.target.value);
-    console.log(dataNumber);
+  const onChangeFunc = (value: any) => {
+    console.log(value);
     let cloneObj = { ...dataDefault };
-    cloneObj.label = dataObjects[dataNumber].label;
-    cloneObj.data = dataObjects[dataNumber].data;
-
-    console.log(cloneObj);
-
+    cloneObj.label = dataObjects[value].label;
+    cloneObj.data = dataObjects[value].data;
+    cloneObj.title = dataObjects[value].title;
     setDataDefault(cloneObj);
   };
 
   return (
     <div>
-      <select id='years' onChange={onChangeFunc}>
-        <option value='0'>2021</option>
-        <option value='1'>2020</option>
-        <option value='2'>2019</option>
-        <option value='3'>2018</option>
-        <option value='4'>2017</option>
-      </select>
+      <ButtonGroup2
+        maxWidth='215'
+        // dataClick={[1, 2, 3, 4, 5]}
+        // maxWidth='200'
+        title={dataDefault.title}
+      >
+        <h2>Timeframe</h2>
+        <RadioCheck check={true} clickHandle={onChangeFunc} valueOptions={0}>
+          2021
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={1}>
+          2020
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={2}>
+          2019
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={3}>
+          2018
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={4}>
+          2017
+        </RadioCheck>
+      </ButtonGroup2>
       <Chart
+        id='chartjs-id'
         type='line'
         data={{
           labels: MONTHS,
           datasets: [
             {
-              yAxisID: 'firstChart',
+              // yAxisID: 'firstChart',
               type: 'line',
               label: dataDefault.label,
               data: dataDefault.data,
@@ -153,7 +180,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
               pointBackgroundColor: 'transparent',
               pointBorderColor: 'transparent',
               borderWidth: 5,
-              tension: 0.2,
+              tension: 0.3,
             },
             {
               yAxisID: 'secondChart2',
@@ -178,10 +205,10 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
               pointBackgroundColor: 'transparent',
               pointBorderColor: 'transparent',
               borderWidth: 5,
-              tension: 0.2,
+              tension: 0.3,
             },
             {
-              yAxisID: 'secondChart3',
+              // yAxisID: 'secondChart3',
               type: 'line',
               label: 'Datasets 8',
               data: [
@@ -203,43 +230,112 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
               pointBackgroundColor: 'transparent',
               pointBorderColor: 'transparent',
               borderWidth: 5,
-              tension: 0.2,
+              tension: 0.3,
             },
           ],
         }}
         options={{
+          responsive: true,
+          plugins: {
+            title: {
+              align: 'start',
+              display: true,
+              text: 'Portfolio Performance',
+              padding: 50,
+              font: {
+                weight: 'bold',
+                size: 40,
+              },
+            },
+            legend: {
+              labels: {
+                padding: 50,
+              },
+              position: 'bottom',
+              align: 'start',
+            },
+          },
           interaction: {
             intersect: false,
           },
           scales: {
-            // secondChart2: {
-            //   position: 'right',
-            //   min: 10,
-            //   max: 20,
-            //   grid: {
-            //     borderColor: 'transparent',
-            //     drawOnChartArea: false,
-            //     display: false,
-            //   },
-            // },
-            // x: {
-            //   grid: {
-            //     drawOnChartArea: false,
-            //     drawBorder: false,
-            //     borderColor: 'transparent',
-            //     display: false,
-            //   },
-            // },
-            y: {
+            secondChart2: {
+              offset: true,
+
+              type: 'linear',
+              // grace: '10%',
+              position: 'right',
+              min: 15,
+              max: 25,
+              ticks: {
+                // padding: 50,
+
+                stepSize: 5,
+              },
               grid: {
-                // drawTicks: false,
                 // borderColor: 'transparent',
+                drawOnChartArea: false,
+                display: false,
+              },
+            },
+            x: {
+              offset: true,
+
+              ticks: {
+                autoSkip: false,
+                // minRotation: 30,
+              },
+              grid: {
+                // tickBorderDashOffset: 40,
+                // drawOnChartArea: false,
+                // drawBorder: false,
+                // borderColor: 'transparent',
+                display: false,
+              },
+            },
+            y: {
+              offset: true,
+              type: 'linear',
+              // grace: '%',
+              min: 10,
+              max: 20,
+              ticks: {
+                // padding: 50,
+                stepSize: 5,
+              },
+
+              grid: {
+                color: 'transparent',
+                // borderColor: 'transparent',
+
                 // display: false,
               },
             },
           },
         }}
       />
+      {/* <ButtonGroup2
+        maxWidth='215'
+        // dataClick={[1, 2, 3, 4, 5]}
+        // maxWidth='200'
+        title={dataDefault.title}
+      >
+        <RadioCheck check={true} clickHandle={onChangeFunc} valueOptions={0}>
+          2021
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={1}>
+          2020
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={2}>
+          2019
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={3}>
+          2018
+        </RadioCheck>
+        <RadioCheck clickHandle={onChangeFunc} valueOptions={4}>
+          2017
+        </RadioCheck>
+      </ButtonGroup2> */}
     </div>
   );
 };
