@@ -1,38 +1,30 @@
 import React, { ReactNode, useState } from 'react';
 import { ArrowDown } from '../../../../assets/icons/Icons';
+import './ButtonGroup2.scss';
 
 interface ButtonGroup2 {
-  children: any;
+  children: ReactNode;
   maxWidth: string;
   title: string;
+  toggleDrop: () => void;
+  className?: string;
 }
 
-const ButtonGroup2 = ({ maxWidth, title, ...props }: ButtonGroup2) => {
-  const [defaultOpen, setDefaultOpen] = useState(false);
-
-  console.log(defaultOpen);
-  const isOpen = () => {
-    setDefaultOpen(!defaultOpen);
-
-    if (defaultOpen) {
-      console.log('co vao');
-      setDefaultOpen(!defaultOpen);
-    }
-  };
+const ButtonGroup2 = ({
+  className,
+  toggleDrop,
+  maxWidth,
+  title,
+  ...props
+}: ButtonGroup2) => {
+  console.log(toggleDrop);
   return (
     <React.Fragment>
       <button
-        onClick={isOpen}
+        className={className}
+        onClick={toggleDrop}
         style={{
-          background: 'none',
-          border: '1px solid transparent',
-          borderRadius: '10%',
-          width: '100%',
           maxWidth: `${maxWidth}px`,
-          padding: '10px',
-          position: 'absolute',
-          right: '0',
-          zIndex: 1,
         }}
       >
         <div
@@ -42,16 +34,11 @@ const ButtonGroup2 = ({ maxWidth, title, ...props }: ButtonGroup2) => {
             alignItems: 'center',
           }}
         >
+          {/* <table style={{ display: 'none' }}>asddsa</table> */}
           <span style={{}}>{title}</span>
           <ArrowDown></ArrowDown>
         </div>
-
-        <div
-          style={defaultOpen ? { display: 'block' } : { display: 'none' }}
-          //   onClick={() => console.log('click trung ne')}
-        >
-          {props.children}
-        </div>
+        {props.children}
       </button>
     </React.Fragment>
   );

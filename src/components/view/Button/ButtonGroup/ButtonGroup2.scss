@@ -1,0 +1,27 @@
+.chart-select__month {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 10%;
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  font-size: 22px;
+  color: #f58e6a;
+  top: 65px;
+  cursor: pointer;
+}
+
+.chart-select__years {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 10%;
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  font-size: 22px;
+  color: #f58e6a;
+  bottom: 10px;
+}

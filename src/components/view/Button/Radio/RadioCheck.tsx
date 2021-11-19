@@ -35,10 +35,7 @@ const RadioCheck = ({
 
   return (
     <label className={`container radio ${disabled ? 'disabled' : ''}`}>
-      <label
-        htmlFor={props.children || dataForm}
-        style={{ marginRight: '50px', cursor: 'pointer' }}
-      >
+      <label htmlFor={props.children || dataForm} style={{ cursor: 'pointer' }}>
         {props.children}
       </label>
       <input
@@ -48,7 +45,7 @@ const RadioCheck = ({
         value={props.children}
         id={props.children || dataForm}
         className='disabled'
-        onChange={(e) => testChange(e)}
+        onChange={testChange}
         defaultChecked={check}
       />
       <label

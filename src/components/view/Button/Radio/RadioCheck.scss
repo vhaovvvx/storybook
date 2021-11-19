@@ -79,12 +79,12 @@
 
 input:checked ~ .checkmark,
 input:checked ~ .checkmark.radio {
-  background-color: white;
+  background-color: white !important;
 }
 
 .checkmark:after,
 .checkmark.radio:after {
-  content: '';
+  content: '' !important;
   position: absolute;
   display: none;
 }
