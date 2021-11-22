@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react';
-import Chart from 'react-chartjs-2';
+import Chart, { Bar, Doughnut } from 'react-chartjs-2';
 import './TestChartjs2.scss';
 import {
   CButton,
@@ -15,6 +15,7 @@ import ButtonDropdown from '../Button/ButtonGroup/ButtonDropdown/ButtonDropDown'
 import ButtonGroup from '../Button/ButtonGroup/ButtonGroup';
 import ButtonGroup2 from '../Button/ButtonGroup/ButtonGroup2';
 import { ChartData, ChartOptions } from 'chart.js';
+import { action } from '@storybook/addon-actions';
 export const getRandomNum = () => {
   return Math.floor(Math.random() * 5) + 15;
 };
@@ -205,18 +206,48 @@ export const MONTHS = [
 //     tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
 // };
 
-type P = {};
+type P = {
+  typeChart?: string;
+  title?: string;
+  indexAxis?: 'x' | 'y';
+};
 
-const TestChartJs2: React.FC<P> = ({ ...props }) => {
+type M = {
+  [name2: string]: any;
+  years: any;
+  month: any;
+};
+
+const TestChartJs2: React.FC<P> = ({
+  typeChart,
+  title,
+  indexAxis,
+  ...props
+}) => {
   const [visibled, setVisibled] = useState(false);
   console.log(visibled);
-  const [defaultOpen, setDefaultOpen] = useState(false);
+
+  const initialObj: M = {
+    years: false,
+    month: false,
+  };
+  const [defaultOpen, setDefaultOpen] = useState(initialObj);
 
   const [defaultOpenMonth, setDefaultOpenMonth] = useState(false);
 
-  const isOpen = () => {
-    setDefaultOpen(!defaultOpen);
-    console.log(defaultOpen);
+  const isOpen = (name2: any) => {
+    const cloneObj = {
+      ...defaultOpen,
+
+      [name2]: !defaultOpen[name2],
+    };
+    console.log('ahihi', cloneObj);
+
+    setDefaultOpen(cloneObj);
+    action('openDropdown')(cloneObj);
+
+    // setDefaultOpen(!defaultOpen);
+    // console.log(defaultOpen);
   };
 
   const [dataDefault, setDataDefault] = useState({
@@ -229,7 +260,6 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
     datasets: [
       {
         // yAxisID: 'firstChart',
-        type: 'line',
         label: dataDefault.label,
         data: dataDefault.data,
         backgroundColor: '#f58e6a',
@@ -241,10 +271,11 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
         pointStyle: 'circle',
         borderWidth: 5,
         tension: 0.3,
+        hoverBorderJoinStyle: 'bevel',
+        // hoverBackgroundColor: '#000000',
       },
       {
         yAxisID: 'secondChart2',
-        type: 'line',
         label: 'Datasets 6',
         data: [
           getRandomNum(),
@@ -272,7 +303,6 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
       },
       {
         // yAxisID: 'secondChart3',
-        type: 'line',
         label: 'Datasets 8',
         data: [
           getRandomNum(),
@@ -300,13 +330,19 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
     ],
   };
 
-  const onChangeFunc = (value: any) => {
+  const onChangeFunc = (value: any, name: any) => {
     let cloneObj = { ...dataDefault };
     cloneObj.label = dataObjects[value].label;
     cloneObj.data = dataObjects[value].data;
     cloneObj.title = dataObjects[value].title;
+
+    const cloneObj2 = { ...defaultOpen, [name]: false };
+    console.log('clone', cloneObj2);
+    setDefaultOpen(cloneObj2);
+
     setDataDefault(cloneObj);
-    setVisibled(false);
+
+    // setDefaultOpen(obj2);
   };
 
   const objTestOptions: ChartOptions = {
@@ -315,7 +351,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
       title: {
         align: 'start',
         display: true,
-        text: 'Portfolio Performance',
+        text: title,
         padding: 50,
         font: {
           weight: 'bold',
@@ -332,6 +368,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
         position: 'bottom',
         align: 'start',
       },
+
       tooltip: {
         // enabled:false,
         // external: externalTooltipHandler,
@@ -382,6 +419,7 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
         min: 10,
         max: 20,
         ticks: {
+          crossAlign: 'far',
           // padding: 50,
           stepSize: 5,
         },
@@ -398,9 +436,11 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
 
   return (
     <div style={{ padding: '1rem', position: 'relative' }}>
-      {/* <ButtonGroup2
+      {/* {typeChart === 'line' ? ( */}
+      <ButtonGroup2
         maxWidth='90'
         className='chart-select__years'
+        name='years'
         // dataClick={[1, 2, 3, 4, 5]}
         // maxWidth='200'
         toggleDrop={isOpen}
@@ -414,31 +454,36 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
             background: '#fff',
           }}
           className={
-            defaultOpen ? 'Drop-down-Btn noHidden' : 'Drop-down-Btn Hidden'
+            defaultOpen.years
+              ? 'Drop-down-Btn noHidden'
+              : 'Drop-down-Btn Hidden'
           }
         >
           <h2 style={{ textAlign: 'left' }}>Timeframe</h2>
-          <RadioCheck check={true} clickHandle={onChangeFunc} valueOptions={0}>
+          <RadioCheck
+            check={true}
+            clickHandle={onChangeFunc}
+            valueOptions={0}
+            name='years'
+          >
             3 Year
           </RadioCheck>
-          <RadioCheck clickHandle={onChangeFunc} valueOptions={1}>
+          <RadioCheck clickHandle={onChangeFunc} valueOptions={1} name='years'>
             5 Year
           </RadioCheck>
-          <RadioCheck clickHandle={onChangeFunc} valueOptions={2}>
+          <RadioCheck clickHandle={onChangeFunc} valueOptions={2} name='years'>
             10 Year
           </RadioCheck>
         </div>
-      </ButtonGroup2> */}
-      <CButton>Button</CButton>
-
-      <CDropdown visible={visibled}>
+      </ButtonGroup2>
+      ){/* : null} */};
+      {/* <CDropdown ref={testRef} >
         <CDropdownToggle
           color='secondary'
-          onClick={() => setVisibled(!visibled)}
+          // onClick={() => setVisibled(!visibled)}
         >
           {dataDefault.title}
         </CDropdownToggle>
-        {/* <div className='ssssihi' style={{ display: 'block' }}> */}
         <CDropdownMenu>
           <CDropdownItem>
             <RadioCheck
@@ -460,14 +505,13 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
             </RadioCheck>
           </CDropdownItem>
         </CDropdownMenu>
-        {/* </div> */}
-      </CDropdown>
-      {/* 
+      </CDropdown> */}
       <ButtonGroup2
         maxWidth='120'
         className='chart-select__month'
         // dataClick={[1, 2, 3, 4, 5]}
         // maxWidth='200'
+        name='month'
         toggleDrop={isOpen}
         title='Monthly'
       >
@@ -479,25 +523,111 @@ const TestChartJs2: React.FC<P> = ({ ...props }) => {
             background: '#fff',
           }}
           className={
-            defaultOpen ? 'Drop-down-Btn2 noHidden2' : 'Drop-down-Btn Hidden2'
+            defaultOpen.month
+              ? 'Drop-down-Btn noHidden'
+              : 'Drop-down-Btn Hidden'
           }
         >
           <h2 style={{ textAlign: 'left' }}>Timeframe</h2>
-          <RadioCheck check={true} clickHandle={onChangeFunc} valueOptions={0}>
+          <RadioCheck
+            check={true}
+            name='month'
+            clickHandle={onChangeFunc}
+            valueOptions={0}
+          >
             Monthly
           </RadioCheck>
-          <RadioCheck clickHandle={onChangeFunc} valueOptions={1}>
+          <RadioCheck clickHandle={onChangeFunc} name='month' valueOptions={1}>
             Yearly
           </RadioCheck>
         </div>
-      </ButtonGroup2> */}
+      </ButtonGroup2>
+      {typeChart === 'line' ? (
+        <Chart
+          id='chartjs-id'
+          type={typeChart}
+          data={objTestData}
+          options={objTestOptions}
+        />
+      ) : typeChart === 'doughnut' ? (
+        <Chart
+          type={typeChart}
+          data={{
+            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            datasets: [
+              {
+                data: [30, 40, 50, 60, 70],
+                backgroundColor: [
+                  'red',
+                  'blue',
+                  'green',
+                  'black',
+                  'yellow',
+                  'orange',
+                  'purple',
+                ],
+              },
+            ],
+          }}
+          options={{
+            plugins: {
+              title: {
+                align: 'start',
+                display: true,
+                text: title,
+                padding: 50,
+                font: {
+                  weight: 'bold',
+                  size: 40,
+                },
+              },
+              legend: {
+                labels: {
+                  usePointStyle: true,
+                  pointStyle: 'circle',
+                  padding: 50,
+                },
+                position: 'right',
+              },
+            },
+          }}
+        ></Chart>
+      ) : typeChart === 'bar' ? (
+        <Chart
+          type='line'
+          data={{
+            labels: ['qwe', 'rty', 'uio', 'asd', 'fgh', 'jkl', 'zxc', 'vbn'],
+            datasets: [
+              {
+                type: 'bar',
+                label: 'Datasets 1',
+                data: [30, 40, 50, 60, 70, 80, 90, 100],
+                backgroundColor: ['red'],
+              },
 
-      <Chart
+              {
+                type: 'bar',
+                label: 'Datasets 2',
+                data: [40, 50, 60, 70, 80, 90, 100, 110],
+                backgroundColor: ['green'],
+              },
+            ],
+          }}
+          options={{
+            indexAxis: indexAxis,
+
+            plugins: {
+              legend: {},
+            },
+          }}
+        ></Chart>
+      ) : null}
+      {/* <Chart
         id='chartjs-id'
-        type='line'
+        type={typeChart}
         data={objTestData}
         options={objTestOptions}
-      />
+      /> */}
       {/* <ButtonGroup2
         maxWidth='215'
         // dataClick={[1, 2, 3, 4, 5]}

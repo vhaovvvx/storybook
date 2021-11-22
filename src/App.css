@@ -9,8 +9,10 @@
   --Jicama: #dbe0e6;
   --Berry: #2875ea;
   --Plum: #0d004c;
+  --BtnValueColor: #759bef;
 }
 
 .App {
-  width: 50%;
+  box-sizing: border-box;
+  /* width: 50%; */
 }

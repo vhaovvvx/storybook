@@ -3,26 +3,27 @@ import { ArrowDown } from '../../../../assets/icons/Icons';
 import './ButtonGroup2.scss';
 
 interface ButtonGroup2 {
-  children: ReactNode;
-  maxWidth: string;
-  title: string;
-  toggleDrop: () => void;
+  children?: ReactNode;
+  maxWidth?: string;
+  title?: string;
+  toggleDrop?: any;
   className?: string;
+  name?: string;
 }
 
 const ButtonGroup2 = ({
+  name,
   className,
   toggleDrop,
   maxWidth,
   title,
   ...props
 }: ButtonGroup2) => {
-  console.log(toggleDrop);
   return (
     <React.Fragment>
       <button
         className={className}
-        onClick={toggleDrop}
+        onClick={() => toggleDrop(name)}
         style={{
           maxWidth: `${maxWidth}px`,
         }}

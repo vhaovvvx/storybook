@@ -7,3 +7,13 @@
 .arrow-down {
   margin-left: 10px;
 }
+
+.uploadfile-icon {
+  width: 20px;
+  font-size: 18px;
+  & polygon {
+    width: 20px;
+    fill: orange;
+    font-size: 20px;
+  }
+}

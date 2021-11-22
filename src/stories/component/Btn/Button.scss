@@ -1,0 +1,19 @@
+.btn-custom__normal {
+  outline: none;
+  cursor: pointer;
+  color: #759bef;
+  font-size: 18px;
+  font-weight: bold;
+  border: 2px solid #759bef;
+  &:hover.unchecked {
+    border: 2px solid transparent;
+    background-color: orange !important;
+    color: #283977;
+    transition: all 0.25s;
+  }
+}
+
+.btn-custom__normal.checked {
+  background-color: #759bef;
+  color: white;
+}

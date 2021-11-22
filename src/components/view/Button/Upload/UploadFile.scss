@@ -1,0 +1,14 @@
+.uploadfile {
+  display: flex;
+
+  border: 2px dashed orange;
+  border-radius: 18px;
+  padding: 20px;
+
+  text-align: center;
+  justify-content: center;
+}
+
+label {
+  cursor: pointer;
+}

@@ -8,9 +8,11 @@ interface BtnRadioP {
   children?: any;
   valueOptions?: number;
   clickHandle?: Function | undefined;
+  name?: string;
 }
 
 const RadioCheck = ({
+  name,
   disabled,
   check,
   valueOptions,
@@ -21,11 +23,11 @@ const RadioCheck = ({
 
   const testChange = (e: any) => {
     const checked = e.target.checked;
+    console.log(checked);
     const value = e.target.value;
-    const name = e.target.name;
     if (checked) {
       if (clickHandle) {
-        clickHandle(valueOptions);
+        clickHandle(valueOptions, name);
       }
     }
     // if (getData) {
@@ -39,9 +41,10 @@ const RadioCheck = ({
         {props.children}
       </label>
       <input
+        autoComplete='off'
         type='radio'
-        name='selected'
-        // checked={true}
+        name={name}
+        // checked={props.children === '2020' ? true : false}
         value={props.children}
         id={props.children || dataForm}
         className='disabled'

@@ -1,11 +1,7 @@
 import React from 'react';
-import './button.css';
+import './Button.scss';
 
 interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
   /**
    * What background color to use
    */
@@ -13,38 +9,48 @@ interface ButtonProps {
   /**
    * How large should the button be?
    */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
   label: string;
   /**
    * Optional click handler
    */
   onClick?: () => void;
+
+  numberOfWidth: Number;
+
+  colorBorder: string;
+
+  checked: true | false;
 }
 
 /**
  * Primary UI component for user interaction
  */
 export const Button = ({
-  primary = false,
-  size = 'medium',
+  checked = false,
+  colorBorder,
+  numberOfWidth,
   backgroundColor,
   label,
   ...props
 }: ButtonProps) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+  const styled = {
+    // backgroundColor: backgroundColor,
+    width: '100%',
+    padding: '8px 20px',
+    borderRadius: '18px',
+    maxWidth: `${numberOfWidth}px`,
+    minWidth: '80px',
+    border: '1px solid `${colorBorder}`',
+  };
+
+  const handleClickedBtn = () => {
+    backgroundColor = '#283977';
+  };
   return (
     <button
       type='button'
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
-      style={{ backgroundColor }}
-      {...props}
+      className={`btn-custom__normal ${checked ? 'checked' : 'unchecked'}`}
+      style={styled}
     >
       {label}
     </button>
