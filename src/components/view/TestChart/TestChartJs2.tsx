@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
-import React from 'react';
-import Chart, { Bar, Doughnut } from 'react-chartjs-2';
-import './TestChartjs2.scss';
+import { useRef, useState } from "react";
+import React from "react";
+import Chart, { Bar, Doughnut } from "react-chartjs-2";
+import "./TestChartjs2.scss";
 import {
   CButton,
   CDropdown,
@@ -9,20 +9,20 @@ import {
   CDropdownMenu,
   CDropdownToggle,
   CFormSelect,
-} from '@coreui/react';
-import RadioCheck from '../Button/Radio/RadioCheck';
-import ButtonDropdown from '../Button/ButtonGroup/ButtonDropdown/ButtonDropDown';
-import ButtonGroup from '../Button/ButtonGroup/ButtonGroup';
-import ButtonGroup2 from '../Button/ButtonGroup/ButtonGroup2';
-import { ChartData, ChartOptions } from 'chart.js';
-import { action } from '@storybook/addon-actions';
+} from "@coreui/react";
+import RadioCheck from "../Button/Radio/RadioCheck";
+import ButtonDropdown from "../Button/ButtonGroup/ButtonDropdown/ButtonDropDown";
+import ButtonGroup from "../Button/ButtonGroup/ButtonGroup";
+import ButtonGroup2 from "../Button/ButtonGroup/ButtonGroup2";
+import { ChartData, ChartOptions } from "chart.js";
+import { action } from "@storybook/addon-actions";
 export const getRandomNum = () => {
   return Math.floor(Math.random() * 23) + 1;
 };
 let dataObjects = [
   {
-    title: '2021',
-    label: 'Datasets 1',
+    title: "2021",
+    label: "Datasets 1",
     data: [
       getRandomNum(),
       getRandomNum(),
@@ -39,8 +39,8 @@ let dataObjects = [
     ],
   },
   {
-    title: '2020',
-    label: 'Datasets 2',
+    title: "2020",
+    label: "Datasets 2",
     data: [
       getRandomNum(),
       getRandomNum(),
@@ -57,9 +57,9 @@ let dataObjects = [
     ],
   },
   {
-    title: '2019',
+    title: "2019",
 
-    label: 'Datasets 3',
+    label: "Datasets 3",
     data: [
       getRandomNum(),
       getRandomNum(),
@@ -78,18 +78,18 @@ let dataObjects = [
 ];
 
 export const MONTHS = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 // const getOrCreateTooltip = (chart: any) => {
@@ -209,7 +209,7 @@ export const MONTHS = [
 type P = {
   typeChart?: string;
   title?: string;
-  indexAxis?: 'x' | 'y';
+  indexAxis?: "x" | "y";
 };
 
 type M = {
@@ -241,10 +241,10 @@ const TestChartJs2: React.FC<P> = ({
 
       [name2]: !defaultOpen[name2],
     };
-    console.log('ahihi', cloneObj);
+    console.log("ahihi", cloneObj);
 
     setDefaultOpen(cloneObj);
-    action('openDropdown')(cloneObj);
+    action("openDropdown")(cloneObj);
 
     // setDefaultOpen(!defaultOpen);
     // console.log(defaultOpen);
@@ -262,22 +262,22 @@ const TestChartJs2: React.FC<P> = ({
         // yAxisID: 'firstChart',
         label: dataDefault.label,
         data: dataDefault.data,
-        backgroundColor: 'rgba(225, 137, 182, 0.3)',
+        backgroundColor: "rgba(225, 137, 182, 0.3)",
         // borderColor: 'rgba(225, 137, 182, 0.3)',
-        pointBackgroundColor: 'rgba(225, 137, 182, 0.3)',
-        pointBorderColor: 'rgba(225, 137, 182, 0.3)',
+        pointBackgroundColor: "rgba(225, 137, 182, 0.3)",
+        pointBorderColor: "rgba(225, 137, 182, 0.3)",
         pointHoverRadius: 0,
         pointRadius: 0,
-        pointStyle: 'circle',
+        pointStyle: "circle",
         borderWidth: 5,
         tension: 0.3,
-        hoverBorderColor: 'black',
+        hoverBorderColor: "black",
         // hoverBorderJoinStyle: 'bevel',
-        pointHoverBackgroundColor: 'rgba(225, 137, 182,1)',
+        pointHoverBackgroundColor: "rgba(225, 137, 182,1)",
       },
       {
-        yAxisID: 'secondChart2',
-        label: 'Datasets 6',
+        yAxisID: "secondChart2",
+        label: "Datasets 6",
         data: [
           getRandomNum(),
           getRandomNum(),
@@ -292,10 +292,10 @@ const TestChartJs2: React.FC<P> = ({
           getRandomNum(),
           getRandomNum(),
         ],
-        backgroundColor: '#8f56e8',
-        borderColor: '#8f56e8',
-        pointBackgroundColor: '#8f56e8',
-        pointBorderColor: '#8f56e8',
+        backgroundColor: "#8f56e8",
+        borderColor: "#8f56e8",
+        pointBackgroundColor: "#8f56e8",
+        pointBorderColor: "#8f56e8",
         pointHoverRadius: 0,
         pointRadius: 0,
 
@@ -304,7 +304,7 @@ const TestChartJs2: React.FC<P> = ({
       },
       {
         // yAxisID: 'secondChart3',
-        label: 'Datasets 8',
+        label: "Datasets 8",
         data: [
           getRandomNum(),
           getRandomNum(),
@@ -319,10 +319,10 @@ const TestChartJs2: React.FC<P> = ({
           getRandomNum(),
           getRandomNum(),
         ],
-        backgroundColor: '#60c2cc',
-        borderColor: '#60c2cc',
-        pointBackgroundColor: '#60c2cc',
-        pointBorderColor: '#60c2cc',
+        backgroundColor: "#60c2cc",
+        borderColor: "#60c2cc",
+        pointBackgroundColor: "#60c2cc",
+        pointBorderColor: "#60c2cc",
         pointHoverRadius: 0,
         pointRadius: 0,
         borderWidth: 5,
@@ -338,7 +338,7 @@ const TestChartJs2: React.FC<P> = ({
     cloneObj.title = dataObjects[value].title;
 
     const cloneObj2 = { ...defaultOpen, [name]: false };
-    console.log('clone', cloneObj2);
+    console.log("clone", cloneObj2);
     setDefaultOpen(cloneObj2);
 
     setDataDefault(cloneObj);
@@ -350,12 +350,12 @@ const TestChartJs2: React.FC<P> = ({
     responsive: true,
     plugins: {
       title: {
-        align: 'start',
+        align: "start",
         display: true,
         text: title,
         padding: 50,
         font: {
-          weight: 'bold',
+          weight: "bold",
           size: 40,
         },
       },
@@ -363,11 +363,11 @@ const TestChartJs2: React.FC<P> = ({
         // display: false,
         labels: {
           usePointStyle: true,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           padding: 50,
         },
-        position: 'bottom',
-        align: 'start',
+        position: "bottom",
+        align: "start",
       },
 
       tooltip: {
@@ -382,9 +382,9 @@ const TestChartJs2: React.FC<P> = ({
       secondChart2: {
         offset: true,
 
-        type: 'linear',
+        type: "linear",
         // grace: '10%',
-        position: 'right',
+        position: "right",
         min: 15,
         max: 25,
         ticks: {
@@ -415,18 +415,18 @@ const TestChartJs2: React.FC<P> = ({
       },
       y: {
         offset: true,
-        type: 'linear',
+        type: "linear",
         // grace: '%',
         min: 10,
         max: 20,
         ticks: {
-          crossAlign: 'far',
+          crossAlign: "far",
           // padding: 50,
           stepSize: 5,
         },
 
         grid: {
-          color: 'transparent',
+          color: "transparent",
           // borderColor: 'transparent',
 
           // display: false,
@@ -436,12 +436,12 @@ const TestChartJs2: React.FC<P> = ({
   };
 
   return (
-    <div style={{ padding: '1rem', position: 'relative' }}>
+    <div style={{ padding: "1rem", position: "relative" }}>
       {/* {typeChart === 'line' ? ( */}
       <ButtonGroup2
-        maxWidth='90'
-        className='chart-select__years'
-        name='years'
+        maxWidth="90"
+        className="chart-select__years"
+        name="years"
         // dataClick={[1, 2, 3, 4, 5]}
         // maxWidth='200'
         toggleDrop={isOpen}
@@ -449,32 +449,37 @@ const TestChartJs2: React.FC<P> = ({
       >
         <div
           style={{
-            position: 'absolute',
-            width: '285px',
-            top: '-150px',
-            background: '#fff',
+            position: "absolute",
+            width: "285px",
+            top: "-150px",
+            background: "#fff",
           }}
           className={
             defaultOpen.years
-              ? 'Drop-down-Btn noHidden'
-              : 'Drop-down-Btn Hidden'
+              ? "Drop-down-Btn noHidden"
+              : "Drop-down-Btn Hidden"
           }
         >
-          <h2 style={{ textAlign: 'left' }}>Timeframe</h2>
+          <h2 style={{ textAlign: "left" }}>Timeframe</h2>
           <RadioCheck
             check={true}
             clickHandle={onChangeFunc}
             valueOptions={0}
-            name='years'
-          >
-            3 Year
-          </RadioCheck>
-          <RadioCheck clickHandle={onChangeFunc} valueOptions={1} name='years'>
-            5 Year
-          </RadioCheck>
-          <RadioCheck clickHandle={onChangeFunc} valueOptions={2} name='years'>
-            10 Year
-          </RadioCheck>
+            name="years"
+            valueData="3 Year"
+          ></RadioCheck>
+          <RadioCheck
+            clickHandle={onChangeFunc}
+            valueOptions={1}
+            name="years"
+            valueData="5 Year"
+          ></RadioCheck>
+          <RadioCheck
+            clickHandle={onChangeFunc}
+            valueOptions={2}
+            name="years"
+            valueData="10 Year"
+          ></RadioCheck>
         </div>
       </ButtonGroup2>
       ){/* : null} */};
@@ -508,64 +513,66 @@ const TestChartJs2: React.FC<P> = ({
         </CDropdownMenu>
       </CDropdown> */}
       <ButtonGroup2
-        maxWidth='120'
-        className='chart-select__month'
+        maxWidth="120"
+        className="chart-select__month"
         // dataClick={[1, 2, 3, 4, 5]}
         // maxWidth='200'
-        name='month'
+        name="month"
         toggleDrop={isOpen}
-        title='Monthly'
+        title="Monthly"
       >
         <div
           style={{
-            position: 'absolute',
-            width: '285px',
-            top: '-150px',
-            background: '#fff',
+            position: "absolute",
+            width: "285px",
+            top: "-150px",
+            background: "#fff",
           }}
           className={
             defaultOpen.month
-              ? 'Drop-down-Btn noHidden'
-              : 'Drop-down-Btn Hidden'
+              ? "Drop-down-Btn noHidden"
+              : "Drop-down-Btn Hidden"
           }
         >
-          <h2 style={{ textAlign: 'left' }}>Timeframe</h2>
+          <h2 style={{ textAlign: "left" }}>Timeframe</h2>
           <RadioCheck
+            valueData="Monthly"
             check={true}
-            name='month'
+            name="month"
             clickHandle={onChangeFunc}
             valueOptions={0}
-          >
-            Monthly
-          </RadioCheck>
-          <RadioCheck clickHandle={onChangeFunc} name='month' valueOptions={1}>
-            Yearly
-          </RadioCheck>
+          ></RadioCheck>
+          <RadioCheck
+            clickHandle={onChangeFunc}
+            name="month"
+            valueOptions={1}
+            valueData="Yearly"
+          ></RadioCheck>
         </div>
       </ButtonGroup2>
-      {typeChart === 'line' ? (
+      {typeChart === "line" ? (
         <Chart
-          id='chartjs-id'
+          id="chartjs-id"
           type={typeChart}
           data={objTestData}
           options={objTestOptions}
         />
-      ) : typeChart === 'doughnut' ? (
+      ) : typeChart === "doughnut" ? (
         <Chart
           type={typeChart}
           data={{
-            labels: ['1', '2', '3', '4', '5', '6', '7'],
+            labels: ["1", "2", "3", "4", "5", "6", "7"],
             datasets: [
               {
                 data: [30, 40, 50, 60, 70],
                 backgroundColor: [
-                  'red',
-                  'blue',
-                  'green',
-                  'black',
-                  'yellow',
-                  'orange',
-                  'purple',
+                  "red",
+                  "blue",
+                  "green",
+                  "black",
+                  "yellow",
+                  "orange",
+                  "purple",
                 ],
               },
             ],
@@ -573,44 +580,44 @@ const TestChartJs2: React.FC<P> = ({
           options={{
             plugins: {
               title: {
-                align: 'start',
+                align: "start",
                 display: true,
                 text: title,
                 padding: 50,
                 font: {
-                  weight: 'bold',
+                  weight: "bold",
                   size: 40,
                 },
               },
               legend: {
                 labels: {
                   usePointStyle: true,
-                  pointStyle: 'circle',
+                  pointStyle: "circle",
                   padding: 50,
                 },
-                position: 'right',
+                position: "right",
               },
             },
           }}
         ></Chart>
-      ) : typeChart === 'bar' ? (
+      ) : typeChart === "bar" ? (
         <Chart
-          type='line'
+          type="line"
           data={{
-            labels: ['qwe', 'rty', 'uio', 'asd', 'fgh', 'jkl', 'zxc', 'vbn'],
+            labels: ["qwe", "rty", "uio", "asd", "fgh", "jkl", "zxc", "vbn"],
             datasets: [
               {
-                type: 'bar',
-                label: 'Datasets 1',
+                type: "bar",
+                label: "Datasets 1",
                 data: [30, 40, 50, 60, 70, 80, 90, 100],
-                backgroundColor: ['red'],
+                backgroundColor: ["red"],
               },
 
               {
-                type: 'bar',
-                label: 'Datasets 2',
+                type: "bar",
+                label: "Datasets 2",
                 data: [40, 50, 60, 70, 80, 90, 100, 110],
-                backgroundColor: ['green'],
+                backgroundColor: ["green"],
               },
             ],
           }}

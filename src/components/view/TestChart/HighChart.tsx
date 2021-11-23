@@ -1,84 +1,177 @@
-import * as React from 'react';
-import * as ReactDom from 'react-dom';
-import * as Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+import * as React from "react";
+import * as Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 
-import './HighChart.scss';
-import { actions } from '@storybook/addon-actions';
-import { getRandomNum } from './TestChartJs2';
-
-// The wrapper exports only a default component that at the same time is a
-// namespace for the related Props interface (HighchartsReact.Props) and
-// RefObject interface (HighchartsReact.RefObject). All other interfaces
-// like Options come from the Highcharts module itself.
+import "./HighChart.scss";
+import { action, actions } from "@storybook/addon-actions";
+import { getRandomNum, MONTHS } from "./TestChartJs2";
+import ButtonGroup2 from "../Button/ButtonGroup/ButtonGroup2";
+import RadioCheck from "../Button/Radio/RadioCheck";
 
 interface PHighChart {
   title?: string;
   type?: string;
 }
 
-// React supports function components as a simple way to write components that
-// only contain a render method without any state (the App component in this
-// example).
+let dataObjects = [
+  {
+    title: "2021",
+    label: "Datasets 1",
+    data: [
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+    ],
+  },
+  {
+    title: "2020",
+    label: "Datasets 2",
+    data: [
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+    ],
+  },
+  {
+    title: "2019",
+    label: "Datasets 3",
+    data: [
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+      getRandomNum(),
+    ],
+  },
+];
+
+let titleMonthly = [
+  {
+    title: "Monthly",
+  },
+  {
+    title: "Yearly",
+  },
+];
+
+type M = {
+  [name2: string]: unknown;
+  years: boolean;
+  month: boolean;
+};
 
 const HighChartComponent = ({ title, type, ...props }: PHighChart) => {
-  const asd = React.useRef(null);
+  const initialObj: M = {
+    years: false,
+    month: false,
+  };
+
+  const [titleDropdownMonth, setTitleDropdownMonth] = React.useState("Monthly");
+  const [defaultOpen, setDefaultOpen] = React.useState(initialObj);
+  const [dataDefault, setDataDefault] = React.useState({
+    label: dataObjects[0].label,
+    data: dataObjects[0].data,
+    title: dataObjects[0].title,
+    titleMonthly: titleMonthly[0].title,
+  });
+
+  const isOpen = (name2: string) => {
+    const cloneObj = {
+      ...defaultOpen,
+
+      [name2]: !defaultOpen[name2],
+    };
+    setDefaultOpen(cloneObj);
+    // action("openDropdown")(cloneObj);
+  };
+
+  const onChangeFunc = (value: number, name: string) => {
+    let cloneObj = { ...dataDefault };
+
+    if (name == "month") {
+      cloneObj.titleMonthly = titleMonthly[value].title;
+    } else {
+      cloneObj.label = dataObjects[value].label;
+      cloneObj.data = dataObjects[value].data;
+      cloneObj.title = dataObjects[value].title;
+    }
+
+    const cloneStateObj = { ...defaultOpen, [name]: false };
+    setDefaultOpen(cloneStateObj);
+    setDataDefault(cloneObj);
+  };
   const chartComponentRef = React.useRef<HighchartsReact.RefObject>(null);
   const options: Highcharts.Options = {
     title: {
-      text: 'My chart',
+      text: "My chart",
+      align: "left",
+      x: 50,
     },
     series: [
       {
-        borderColor: 'transparent',
-        name: 'labels1',
-        type: 'areaspline',
-        fillColor: 'transparent',
-        data: [10, 12, 14, 16, 12, 14, 17, 25],
-        //   size: '100%',
-        //   innerSize: '50%',
-
-        showInLegend: true,
-        //   borderColor: 'transparent',
-        dataLabels: {
-          enabled: false,
-        },
-        marker: {
-          //   radius: 6,
-          //   symbol: 'circle',
-        },
-        point: {},
+        borderColor: "transparent",
+        name: "labels1",
+        type: "areaspline",
+        fillColor: "transparent",
+        data: dataDefault.data,
         events: {
           mouseOver: function () {},
         },
-        lineWidth: 10,
-        cursor: 'pointer',
+        lineWidth: 5,
+        cursor: "pointer",
       },
       {
-        name: 'labels2',
-        fillColor: 'transparent',
+        name: "labels2",
+        fillColor: "transparent",
+        type: "areaspline",
+        data: dataDefault.data,
 
-        type: 'areaspline',
-        data: [14, 10, 11, 12, 21, 25, 10, 11],
-        //   size: '100%',
-        //   innerSize: '50%',
-        showInLegend: true,
-        //   borderColor: 'transparent',
-        dataLabels: {
-          enabled: false,
-        },
-        point: {},
         events: {
           mouseOver: function () {},
         },
-        lineWidth: 10,
-        cursor: 'pointer',
+        lineWidth: 8,
+        cursor: "pointer",
       },
       {
-        name: 'labels3',
-        type: 'areaspline',
-        fillColor: 'transparent',
-
+        name: "labels3",
+        type: "areaspline",
+        fillColor: "transparent",
+        data: dataDefault.data,
+        events: {
+          mouseOver: function () {},
+        },
+        lineWidth: 8,
+        cursor: "pointer",
+      },
+      {
+        name: "Temperature",
+        type: "areaspline",
+        fillColor: "transparent",
         data: [
           getRandomNum(),
           getRandomNum(),
@@ -88,84 +181,30 @@ const HighChartComponent = ({ title, type, ...props }: PHighChart) => {
           getRandomNum(),
           getRandomNum(),
           getRandomNum(),
-        ],
-        cursor: 'pointer',
-
-        //   size: '100%',
-        //   innerSize: '50%',
-        showInLegend: true,
-        //   borderColor: 'transparent',
-        dataLabels: {
-          enabled: false,
-        },
-        point: {},
-        events: {
-          mouseOver: function () {},
-        },
-        lineWidth: 10,
-      },
-      {
-        name: 'Temperature',
-        type: 'areaspline',
-        fillColor: 'transparent',
-        data: [
-          getRandomNum(),
-          getRandomNum(),
-          getRandomNum(),
-          getRandomNum(),
           getRandomNum(),
           getRandomNum(),
           getRandomNum(),
           getRandomNum(),
         ],
-        tooltip: {
-          valueSuffix: ' ',
-        },
-        //   size: '100%',
-        //   innerSize: '50%',
-        //   showInLegend: true,
-        //   borderColor: 'transparent',
-        //   dataLabels: {
-        //     enabled: false,
-        //   },
-        //   point: {},
-        //   events: {
-        //     mouseOver: function () {},
-        //   },
-        lineWidth: 10,
-        cursor: 'pointer',
+        lineWidth: 8,
+        cursor: "pointer",
       },
     ],
     legend: {
-      align: 'left',
-      verticalAlign: 'bottom',
+      align: "left",
+      verticalAlign: "bottom",
       padding: 20,
-      itemStyle: {},
       x: 90,
       symbolRadius: 5,
       symbolWidth: 20,
-      // layout: 'vertical',
       enabled: true,
-      itemHiddenStyle: {
-        opacity: 0.5,
-      },
     },
     plotOptions: {
-      spline: {
+      series: {
         marker: {
-          enabled: true,
-          radius: 0,
-          width: 20,
+          enabled: false,
         },
       },
-      //   series: {
-      //     marker: {
-      //       enabled: false,
-      //       radius: 6,
-      //       width: 12,
-      //       height: 12,
-      //     },
-      //   },
     },
 
     credits: {
@@ -173,34 +212,15 @@ const HighChartComponent = ({ title, type, ...props }: PHighChart) => {
     },
     xAxis: {
       offset: 30,
-      categories: [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ],
-      //   gridLineColor: 'transparent',
+      categories: MONTHS,
     },
-
     yAxis: [
       {
-        title: {
-          text: '',
-        },
-        labels: {},
         min: 0,
         max: 25,
         tickInterval: 5,
         opposite: true,
-        gridLineColor: 'transparent',
+        gridLineColor: "transparent",
         offset: 50,
       },
       {
@@ -211,33 +231,26 @@ const HighChartComponent = ({ title, type, ...props }: PHighChart) => {
         tickInterval: 5,
         title: {
           style: {
-            color: 'transparent',
+            color: "transparent",
           },
-        },
-        labels: {
-          format: '{value} ',
-          style: {},
         },
       },
     ],
     tooltip: {
       outside: true,
       useHTML: true,
-      backgroundColor: 'transparent',
-      valueSuffix: ' ',
+      backgroundColor: "transparent",
       shadow: false,
       borderWidth: 0,
       formatter: function () {
-        var points = [] as string[];
-        var tooltipArray = [
+        const points = [] as [];
+        const tooltipArray = [
           `<div class='tooltip-custom' style="background-color:${this.color}"> ${this.y}% </div>`,
         ];
 
         points.forEach(function (point: any, index: number) {
-          tooltipArray.push(' <b>' + point.y + +'</b>');
+          tooltipArray.push(" <b>" + point.y + +"</b>");
         });
-
-        // setDefaultColor(color);
 
         return tooltipArray;
       },
@@ -245,16 +258,98 @@ const HighChartComponent = ({ title, type, ...props }: PHighChart) => {
   };
 
   const callBackhandle = (chart: any) => {
-    console.log(chart);
+    //callback handle custom chart
   };
 
   return (
-    <HighchartsReact
-      highcharts={Highcharts}
-      options={options}
-      ref={chartComponentRef}
-      callback={callBackhandle}
-    />
+    <div style={{ position: "relative" }}>
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+        ref={chartComponentRef}
+        callback={callBackhandle}
+      ></HighchartsReact>
+      <ButtonGroup2
+        maxWidth="95"
+        className="chart-select__years"
+        name="years"
+        toggleDrop={isOpen}
+        title={dataDefault.title}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "285px",
+            top: "-150px",
+            background: "#fff",
+          }}
+          className={
+            defaultOpen.years
+              ? "Drop-down-Btn noHidden"
+              : "Drop-down-Btn Hidden"
+          }
+        >
+          <h2 style={{ textAlign: "left" }}>Timeframe</h2>
+          <RadioCheck
+            valueData="3 Year"
+            check={true}
+            clickHandle={onChangeFunc}
+            valueOptions={0}
+            name="years"
+          ></RadioCheck>
+          <RadioCheck
+            clickHandle={onChangeFunc}
+            valueOptions={1}
+            name="years"
+            valueData="5 Year"
+          >
+            5 Year
+          </RadioCheck>
+          <RadioCheck
+            clickHandle={onChangeFunc}
+            valueOptions={2}
+            name="years"
+            valueData="10 Year"
+          ></RadioCheck>
+        </div>
+      </ButtonGroup2>
+      <ButtonGroup2
+        maxWidth="120"
+        className="chart-select__month"
+        name="month"
+        toggleDrop={isOpen}
+        title={dataDefault.titleMonthly}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "285px",
+            top: "-10px",
+            background: "#fff",
+          }}
+          className={
+            defaultOpen.month
+              ? "Drop-down-Btn noHidden"
+              : "Drop-down-Btn Hidden"
+          }
+        >
+          <h2 style={{ textAlign: "left" }}>Timeframe</h2>
+          <RadioCheck
+            valueData="Monthly"
+            check={true}
+            name="month"
+            clickHandle={onChangeFunc}
+            valueOptions={0}
+          ></RadioCheck>
+          <RadioCheck
+            clickHandle={onChangeFunc}
+            name="month"
+            valueOptions={1}
+            valueData="Yearly"
+          ></RadioCheck>
+        </div>
+      </ButtonGroup2>
+    </div>
   );
 };
 

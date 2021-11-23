@@ -1,6 +1,6 @@
-import React, { ReactNode, useState } from 'react';
-import { ArrowDown } from '../../../../assets/icons/Icons';
-import './ButtonGroup2.scss';
+import React, { ReactNode, useState } from "react";
+import { ArrowDown } from "../../../../assets/icons/Icons";
+import "./ButtonGroup2.scss";
 
 interface ButtonGroup2 {
   children?: ReactNode;
@@ -19,6 +19,7 @@ const ButtonGroup2 = ({
   title,
   ...props
 }: ButtonGroup2) => {
+  console.log(title);
   return (
     <React.Fragment>
       <button
@@ -30,13 +31,12 @@ const ButtonGroup2 = ({
       >
         <div
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          {/* <table style={{ display: 'none' }}>asddsa</table> */}
-          <span style={{}}>{title}</span>
+          <span>{title}</span>
           <ArrowDown></ArrowDown>
         </div>
         {props.children}
