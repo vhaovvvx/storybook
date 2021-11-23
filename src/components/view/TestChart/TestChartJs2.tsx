@@ -17,7 +17,7 @@ import ButtonGroup2 from '../Button/ButtonGroup/ButtonGroup2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { action } from '@storybook/addon-actions';
 export const getRandomNum = () => {
-  return Math.floor(Math.random() * 5) + 15;
+  return Math.floor(Math.random() * 23) + 1;
 };
 let dataObjects = [
   {
@@ -262,17 +262,18 @@ const TestChartJs2: React.FC<P> = ({
         // yAxisID: 'firstChart',
         label: dataDefault.label,
         data: dataDefault.data,
-        backgroundColor: '#f58e6a',
-        borderColor: '#f58e6a',
-        pointBackgroundColor: '#f58e6a',
-        pointBorderColor: '#f58e6a',
+        backgroundColor: 'rgba(225, 137, 182, 0.3)',
+        // borderColor: 'rgba(225, 137, 182, 0.3)',
+        pointBackgroundColor: 'rgba(225, 137, 182, 0.3)',
+        pointBorderColor: 'rgba(225, 137, 182, 0.3)',
         pointHoverRadius: 0,
         pointRadius: 0,
         pointStyle: 'circle',
         borderWidth: 5,
         tension: 0.3,
-        hoverBorderJoinStyle: 'bevel',
-        // hoverBackgroundColor: '#000000',
+        hoverBorderColor: 'black',
+        // hoverBorderJoinStyle: 'bevel',
+        pointHoverBackgroundColor: 'rgba(225, 137, 182,1)',
       },
       {
         yAxisID: 'secondChart2',
