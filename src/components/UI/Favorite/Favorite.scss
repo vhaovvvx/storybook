@@ -1,0 +1,23 @@
+@import '../../../scss/style.scss';
+
+.favorite {
+  i {
+    font-size: 30px;
+    color: $color-CornflowerBlue !important;
+    cursor: pointer;
+    display: flex;
+
+    .checked-icon {
+      position: absolute;
+      font-size: 12px;
+      top: 27px;
+      left: 25px;
+      color: $color-White;
+      font-weight: bold;
+    }
+  }
+
+  .checked {
+    position: relative;
+  }
+}

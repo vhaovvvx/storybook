@@ -1,0 +1,92 @@
+@import '../../../scss/style.scss';
+
+.sort {
+  position: relative;
+  margin-top: 40px;
+
+  .button {
+    z-index: 0;
+  }
+  .sort-content {
+    position: absolute;
+    background-color: $color-White;
+    z-index: 1;
+    top: -40px;
+    left: 50px;
+    max-width: 285px;
+    width: 100%;
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 30px 0 40px 30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    p {
+      margin: 0 0 18px 0;
+      font-size: 30px;
+      color: $color-Astronaut;
+      font-weight: bold;
+    }
+    ul {
+      list-style-type: none;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 30px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+        .container {
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+          font-size: 20px;
+          user-select: none;
+          padding-left: 35px;
+          &:hover {
+            color: $color-SandyBrown;
+          }
+
+          input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: $color-White;
+  border-radius: 50%;
+  border: 2px solid $color-SandyBrown;
+}
+
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.container .checkmark:after {
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: solid 3px $color-White;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.container input:checked ~ .checkmark {
+  background: $color-SandyBrown;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}

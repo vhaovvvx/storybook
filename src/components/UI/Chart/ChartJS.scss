@@ -1,0 +1,48 @@
+.wrapper-chart {
+  position: relative;
+}
+
+.opacity-element-onhover {
+  opacity: 0.3 !important;
+}
+
+.buttonTest {
+  position: absolute;
+  top: 50%;
+}
+
+#chartjs-id {
+  position: relative;
+}
+
+.wrap-btn--month {
+  position: absolute;
+  width: 285px;
+  top: -10px;
+  background-color: #fff;
+}
+
+.wrap-btn--years {
+  position: absolute;
+  width: 285px;
+  top: -150px;
+  background: #fff;
+}
+
+.drop-down-btn {
+  border-radius: 10px;
+  box-shadow: 0px 16px 64px rgba(46, 58, 91, 0.16);
+  padding: 20px;
+}
+
+.no-hidden {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.tooltip-custom {
+  color: #fff;
+}

@@ -1,0 +1,266 @@
+@import '../../../scss/style.scss';
+
+$transition: all 0.3s ease;
+
+@mixin displayFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin sidebar {
+  width: 100%;
+  height: 1085px;
+  background-color: $color-Astronaut;
+  box-sizing: border-box;
+  transition: $transition;
+}
+
+@mixin sidebarMenu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin sidebarItem {
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  color: $color-White;
+  width: 100%;
+  height: 35px;
+}
+
+@mixin sidebarToggle {
+  @include displayFlex();
+  position: absolute;
+  bottom: 25px;
+  color: $color-White;
+}
+
+@mixin notification {
+  position: absolute;
+  border-radius: 30px;
+  border: none;
+  background-color: $color-CornflowerBlue;
+  color: $color-White;
+  @include displayFlex();
+  cursor: pointer;
+}
+
+@mixin nm {
+  padding: 7px 7px 5px 7px;
+  font-size: 14px;
+  width: 15px;
+  height: 9px;
+}
+
+@mixin ns {
+  padding: 6px 5px 4px 5px;
+  font-size: 14px;
+  width: 10px;
+  height: 10px;
+}
+
+.sidebar {
+  max-width: 340px;
+  padding: 35px 0 25px 20px;
+  position: relative;
+  @include sidebar();
+
+  .sidebar-logo {
+    margin-bottom: 60px;
+
+    img {
+      width: 77.19%;
+      transition: $transition;
+    }
+  }
+
+  .sidebar-menu {
+    width: 100%;
+
+    ul {
+      @include sidebarMenu();
+
+      .active {
+        color: $color-SandyBrown !important;
+      }
+
+      li {
+        @include sidebarItem;
+        align-items: flex-end !important;
+
+        i {
+          font-size: 30px;
+          display: flex;
+        }
+
+        .sidebar-menu__items {
+          position: relative;
+
+          a {
+            display: block;
+            color: $color-White;
+            text-decoration: none;
+            font-size: 20px;
+            margin-left: 15px;
+            transition: $transition;
+            text-transform: uppercase;
+          }
+
+          .sidebar-menu__notification-m {
+            right: -35px;
+            top: -15px;
+            @include nm();
+            @include notification();
+          }
+
+          .sidebar-menu__notification-s {
+            right: -25px;
+            top: -15px;
+            @include ns();
+            @include notification();
+          }
+        }
+
+        &:hover {
+          a,
+          i {
+            color: $color-SandyBrown !important;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-toggle {
+    @include sidebarToggle();
+
+    &:hover {
+      p,
+      i {
+        cursor: pointer;
+        color: $color-SandyBrown;
+      }
+    }
+
+    i {
+      margin-right: 15px;
+      transform: rotate(0);
+      transition: all 0.2s ease;
+      display: flex;
+    }
+
+    p {
+      margin: 0;
+      font-size: 20px;
+    }
+  }
+}
+
+.sidebar-sm {
+  max-width: 85px;
+  position: relative;
+  padding: 35px 16px 25px 16px;
+  @include sidebar();
+
+  .sidebar-logo {
+    margin-bottom: 60px;
+    @include displayFlex();
+  }
+
+  .sidebar-menu {
+    width: 100%;
+    ul {
+      @include sidebarMenu();
+
+      li {
+        @include sidebarItem;
+        justify-content: center;
+        align-items: flex-start !important;
+
+        &:hover {
+          i {
+            cursor: pointer;
+            color: $color-SandyBrown;
+          }
+        }
+        i {
+          font-size: 30px;
+          display: flex;
+        }
+
+        .sidebar-menu__items {
+          position: relative;
+
+          a {
+            display: none;
+            transition: $transition;
+            text-transform: uppercase;
+          }
+
+          .sidebar-menu__notification-m {
+            right: -20px;
+            top: -10px;
+            @include nm();
+            @include notification();
+          }
+
+          .sidebar-menu__notification-s {
+            right: -7px;
+            top: -5px;
+            @include ns();
+            @include notification();
+          }
+        }
+      }
+    }
+  }
+
+  .sidebar-toggle {
+    @include sidebarToggle();
+    width: 53px;
+
+    &:hover {
+      i {
+        cursor: pointer;
+        color: $color-SandyBrown;
+      }
+    }
+
+    i {
+      margin: 0;
+      transform: rotate(180deg);
+      transition: all 0.2s ease;
+      display: flex;
+    }
+
+    p {
+      display: none;
+    }
+  }
+}
+
+.sidebar {
+  .sidebar-menu ul {
+    .active {
+      .sidebar-menu__items {
+        a {
+          color: $color-SandyBrown !important;
+        }
+      }
+    }
+  }
+}
+
+.sidebar-sm {
+  .sidebar-menu ul {
+    .active {
+      i {
+        color: $color-SandyBrown !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+[type='checkbox']:checked,
+[type='radio'],
+[type='radio']:not(:checked),
+[type='checkbox']:not(:checked) {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  // change border
+  border: 1px solid orange;
+  background: var(--white);
+  position: absolute;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.checkmark:hover {
+  border: 1px solid var(--Melon);
+  background: var(--Galic);
+}
+
+.checkmark.radio {
+  border-radius: 50%;
+}
+
+.container {
+  color: var(--Rhodomyrtus);
+}
+
+.container.disabled {
+  opacity: 0.5;
+}
+
+.container.radio .radio:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  //change color cỉcle
+  background: orange;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.option-value:hover {
+  background-color: red !important;
+}
+
+.container .checkmark:after {
+  left: 50%;
+  top: 40%;
+  box-shadow: 0px 1px 3px rgba(46, 58, 91, 0.08);
+  width: 5px;
+  height: 15px;
+  //change color cỉcle
+  border: solid orange;
+  border-width: 0 3px 3px 0;
+
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+input:checked ~ .checkmark,
+input:checked ~ .checkmark.radio {
+  background-color: white;
+}
+
+.checkmark:after,
+.checkmark.radio:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container,
+.container.radio {
+  position: relative;
+  display: block;
+
+  padding-left: 0;
+  padding-top: 10px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

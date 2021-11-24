@@ -1,0 +1,129 @@
+@import '../../../scss/style.scss';
+
+@mixin dropdown {
+  max-width: 420px;
+  width: 100%;
+  border-radius: 20px;
+  margin: 0px auto;
+  transition: all 0.3s ease;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+@mixin select {
+  display: flex;
+  align-items: center;
+  height: 65px;
+  box-sizing: border-box;
+  padding: 0 16px;
+}
+
+@mixin dropdown-content-flex {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-group {
+  width: 100%;
+
+  span {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
+
+.dropdown {
+  @include dropdown();
+  .selected {
+    border-bottom: none;
+    border-radius: 60px;
+    .s-wrap {
+      @include dropdown-content-flex();
+    }
+  }
+  .in-selected {
+    display: none;
+
+    .is-wrap {
+      @include dropdown-content-flex();
+    }
+  }
+}
+
+.dropdown-select {
+  @include dropdown();
+  transition: all 0.3s ease;
+  border-radius: 30px 30px 0 0;
+  .selected {
+    border-radius: 30px 30px 0 0;
+    border: 2px solid $color-Astronaut;
+    border-bottom: none;
+
+    .s-wrap {
+      @include dropdown-content-flex();
+    }
+  }
+  .in-selected {
+    border-radius: 0 0 30px 30px;
+    color: $color-Astronaut;
+    cursor: pointer;
+
+    .is-wrap {
+      @include dropdown-content-flex();
+    }
+
+    &:hover {
+      border: none;
+    }
+  }
+  #toggle {
+    transform: rotate(-180deg);
+    transition: all 0.3s ease;
+  }
+}
+
+.selected {
+  @include select();
+  position: relative;
+  &:hover {
+    background-color: $color-CornflowerBlue;
+    color: $color-White !important;
+    cursor: pointer;
+  }
+  i {
+    margin-right: 8px;
+    display: flex;
+  }
+}
+
+.in-selected {
+  @include select();
+  position: absolute;
+  top: 65px;
+  border: 2px solid $color-Astronaut;
+  width: 100%;
+  background-color: $color-White;
+  &:hover {
+    background-color: $color-CornflowerBlue;
+    color: $color-White !important;
+    cursor: pointer;
+  }
+  i {
+    margin-right: 8px;
+    display: flex;
+  }
+}
+
+#toggle {
+  position: absolute;
+  right: 8px;
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: all 0.3s ease;
+}
+
+.active {
+  background-color: $color-Astronaut;
+  color: $color-White;
+}
